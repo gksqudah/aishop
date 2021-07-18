@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+	body.cartBody{
+		background-color: #f5ftf0;
+		font-size: 13pt;
+		min-width: 1480px;
+		width: 90%;
+		padding: 50px 0;
+	}
+	
+	/* 전체 div */
+	#frame{
+		width: 80%;
+		margin: 0 auto;
+		padding: 50px 50px;
+		background-color: #fff;
+	}
+	
+
+	#frame2{
+		border-bottom: solid 1px #e0e0eb;
+		padding-bottom: 10px;
+	}
+	
+	.home{
+		folat: right;
+	}
+	
+	table.calculation1{
+		clear: both;
+		border: solid 1px #e0e0eb;
+		border-collapse: collapse;
+		background-color: #f5f5f0;
+		width: 100%;
+		font-size: 10pt;
+	}
+	table.calculation1 th{
+		border: solid 1px #e0e0eb;
+		padding: 10px 0;
+	}
+	table.calculation1 td{
+		border: solid 1px #e0e0eb;
+		text-align: center;
+	}	
+	
+	table.calculation2{
+		border: solid 1px #e0e0eb;
+		border-collapse: collapse;
+		background-color: #f5f5f-;
+		width: 100%;
+		font-size: 10pt;
+	}
+	
+	table.calculation2 th{
+		border: solid 1px #e0e0eb;
+	}
+	
+	table.calculation2 td{
+		border: solid 1px #e0e0eb;
+		text-algin: center;
+	}
+	
+	.price{
+		font-size: 20pt;
+		font-weight: bold;
+	}
+	
+	.lifont{font size: 10pt; color: gray;}
+	
+	/*bootstrap 버튼 */
+	.btn{
+		border: none;
+		color: white;
+		padding: 5px 10px;
+		font-size: 13px;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+	
+	.default{background-color: #fff; border: solid 1px gray; color: black;}
+	.default:hover{background: #ddd;}
+	.backBtn{background: #fff; border: solid 1px gray;}
+	
+	.btnfloat{float: left;}
+	
+	.btnfloat2{float: right;}
+	
+	.clearboth{clear: both;}
+	
+	,fiiterbtb{float:right; font-weight: bolder; font-size: 12pt; border-radius:3px;}
+	
+	#allProduct, #productClear, #footerbtn{padding: 11px 25px;}
+	
+	#allProduct{margin-left: 140px; background-color: #264d73; color: #fff; font-weight: bold; font-size: 12pt;}
+	#productClear{background-color: gray; color:#fff; font-weight: bold; font-size: 12pt;}
+	
+	.aa:hover{ cursor: pointer; }

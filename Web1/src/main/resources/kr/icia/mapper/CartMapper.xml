@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="kr.icia.mapper.CartMapper">
+<!-- 장바구니에 담기 -->
+    <insert id="insert">
+        insert into cart (cart_id, userid, gdsnum, amount)
+        values 
+          (seq_cart.nextval, #{userid}, #{product_id}, #{amount} )
+
+    </insert>
+    
+    <insert id="addCart">
+    	insert into tbl_cart(cartNum, userId, gdsNum, amount )
+    	values (cart_seq.nextval, #{userId}, #{gdsNum}, #{amount}) 
+    </insert>
+    
+    
+    <select id="listCart" resultType="kr.icia.domain.CartDTO">
+        select cart_id, p.gdsNum, c.userid, username, gdsname, amount, gdsprice, (gdsprice*amount) money
+        from tbl_member m, cart c, tbl_product p
+        where m.userid=c.userid and c.gdsnum=p.gdsnum and c.userid=#{userid} order by cart_id
+ 
+                    
+    </select>
+    
+    
+      <select id="sumMoney" resultType="int">
+
+        select nvl(sum(price*amount),0)
+        from cart c, tbl_product p
+        where c.gdsnum=p.gdsnum and userid=#{userid}
+
+
+    </select>
+    
+    
+    <!-- 카트 리스트 -->
+<select id="cartList" resultType="kr.icia.domain.CartVO">
+ select
+     row_number() over(order by c.cartNum desc) as num,
+     c.cartNum, c.userId, c.gdsNum, c.amount, c.addDate,
+     p.gdsName, p.gdsPrice, p.gdsImg
+ from tbl_cart c
+     inner join tbl_product p
+         on c.gdsNum = p.gdsNum   
+     where c.userId = #{userId}
+</select>
+
+<!-- 장바구니에 동일한 상품 레코드 확인 -->
+<select id="countCart" resultType="int">
+	select Count(*) 
+	from tbl_cart
+	where userId =#{userId}
+	and gdsNum =#{gdsNum}
+</select>
+
+<!-- 장바구니에 동일한 상품 존재시 수정 -->
+<update id="updateCart">
+	update tbl_cart
+	set amount = amount + #{amount}
+	where userId =#{userId}
+	and gdsNum =#{gdsNum}
+</update>
+
+<delete id="deleteAll" >
+	delete from tbl_cart where userId=#{userId} 
+</delete>
+
+<delete id="deleteCart">
+	delete from tbl_cart where userId=#{userId} and gdsNum=#{gdsNum}
+</delete>
+
+
+
+   </mapper>
+
+

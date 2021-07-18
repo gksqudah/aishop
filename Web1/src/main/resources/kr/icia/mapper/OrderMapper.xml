@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="kr.icia.mapper.OrderMapper">
+
+<!-- 주문 정보 -->
+<insert id="orderInfo">
+ insert into tbl_order(orderId, userId, orderRec, userPost, userAddr1, userAddr2, orderTel, sum)
+     values(#{orderId}, #{userId}, #{orderRec}, #{userPost}, #{userAddr1}, #{userAddr2}, #{orderTel}, #{sum})
+</insert>
+
+<!-- 주문 상세 정보 --> 
+<insert id="orderInfo_Details">
+ insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, amount)
+     select tbl_order_details_seq.nextval, #{orderId}, gdsNum, amount
+         from tbl_cart   
+</insert> 
+
+<!-- 특정 유저의 주문목록 가져오기 -->
+<select id="orderList" resultType="kr.icia.domain.OrderVO">
+	select
+		orderId, userId, orderRec, userPost, useraddr1, useraddr2, ordertel, sum, orderdate, delivery
+	from tbl_order
+	where userId=#{userId} ORDER BY orderdate
+</select>
+
+
+
+<!-- 특정 주문 목록 -->
+<select id="orderView" resultType="kr.icia.domain.OrderListVO">
+ select
+     o.orderId, o.userId, o.orderRec, o.userPost, o.userAddr1, o.userAddr2, o.orderTel, o.sum, o.orderDate, o.delivery,
+     d.orderDetailsNum, d.gdsNum, d.amount,
+     g.gdsName, g.gdsImg, g.gdsPrice
+ from tbl_order o
+         inner join tbl_order_details d
+             on o.orderId = d.orderId
+         inner join tbl_product g
+             on d.gdsNum = g.gdsNum
+     where o.userId = #{userId}
+         and o.orderId = #{orderId}
+</select>
+
+
+<!-- 상품 소감(댓글) 작성 -->
+<insert id="registReply">
+ insert into tbl_product_reply (gdsNum, userId, repNum, repCon)
+     values (#{gdsNum}, #{userId}, tbl_product_reply_seq.nextval, #{repCon})
+</insert>
+
+<!-- 상품 소감 리스트 -->
+<select id="replyList" resultType="kr.icia.domain.ReplyProductListVO">
+ select
+     r.gdsNum, r.userId, r.repNum, r.repCon, r.repDate, m.userName
+ from tbl_product_reply r
+     inner join tbl_member m
+         on r.userId = m.userId
+     where gdsNum = #{gdsNum}
+</select>
+
+  	  	<!-- 상품 총 개수 -->
+  	<select id="replyGetTotal" resultType="int">
+  	
+  		select count(*) from tbl_product_REPLY
+  		
+  		
+  	</select> 
+
+
+
+
+</mapper>
