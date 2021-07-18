@@ -164,23 +164,23 @@ public class MemberController {
 //	}
 
 	
-	   /* 로그인 */
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
-		logger.info("post login");
-		
-		HttpSession session = req.getSession();
-		MemberVO login = memberservice.login(vo);
-		
-		if(login == null) {
-			session.setAttribute("member", null);
-			rttr.addFlashAttribute("msg", false);
-		}else {
-			session.setAttribute("member", login);
-		}
-		
-		return "redirect:/";
-	}
+//	   /* 로그인 */
+//	@RequestMapping(value = "/login", method = RequestMethod.POST)
+//	public String login(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+//		logger.info("post login");
+//		
+//		HttpSession session = req.getSession();
+//		MemberVO login = memberservice.login(vo);
+//		
+//		if(login == null) {
+//			session.setAttribute("member", null);
+//			rttr.addFlashAttribute("msg", false);
+//		}else {
+//			session.setAttribute("member", login);
+//		}
+//		
+//		return "redirect:/";
+//	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception{
